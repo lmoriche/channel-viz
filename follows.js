@@ -183,13 +183,13 @@
 									var hoverDetail = new Rickshaw.Graph.HoverDetail({
 										graph: graph,
 										formatter: function(series, x, y) {
-											var date = '<span class="date">' + new Date(x * 1000).toString() + '</span>';
+											var date = '<span class="date">' + new Date(x * 1000).toLocaleString() + '</span>';
 											var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + ' padding: 4px;"></span>';
 											var content = swatch + "&nbsp;&nbsp;" + parseFloat(y) + '&nbsp;&nbsp;<br>';
 											return content;
 										},
 										xFormatter: function(x) {
-											return new Date(x * 1000).toString();
+											return new Date(x * 1000).toLocaleString();
 										},
 									});
 
