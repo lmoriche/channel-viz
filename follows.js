@@ -245,21 +245,16 @@
 					}
 
 					// Link
-					$('#feed-' + data.id + ' .link .value').html('<a href="https://xively.com/feeds/' + data.id + '/">View on Xively &raquo;</a>');
+					$('#feed-' + data.id + ' .link').addClass('hidden');
 
 					// Creator
-					var creator = /[^/]*$/.exec(data.creator)[0];
-					$('#feed-' + data.id + ' .creator .value').html('<a href="' + data.creator + '">' + creator + '</a>');
+					$('#feed-' + data.id + ' .creator').addClass('hidden');
 
 					// Date Updated
-					$('#feed-' + data.id + ' .updated .value').html(data.updated);
+					$('#feed-' + data.id + ' .updated').addClass('hidden');
 
 					// Tags
-					if(data.tags) {
-						$('#feed-' + data.id + ' .tags .value').html('<span class="radius secondary label">' + data.tags.join('</span> <span class="radius secondary label">') + '</span>');
-					} else {
-						$('#feed-' + data.id + ' .tags').addClass('hidden');
-					}
+					$('#feed-' + data.id + ' .tags').addClass('hidden');
 
 					$('#feed-' + data.id + ' .duration-hour').click(function() {
 						$('#loadingData').foundation('reveal', 'open');
