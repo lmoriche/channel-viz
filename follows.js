@@ -169,7 +169,7 @@
 										graph: graph,
 										tickFormat: function(x) {
 											return new Date(x * 1000).toString();
-										}
+										},
 										ticksTreatment: ticksTreatment
 									});
 									xAxis.render();
