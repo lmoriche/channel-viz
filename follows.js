@@ -293,7 +293,17 @@
 	var yesterday = new Date(today.getTime()-1000*60*60*24*1);
 	var lastWeek = new Date(today.getTime()-1000*60*60*24*7);
 
-	feedString = defaultFeeds.toString(',');
+	var key = getParam('key');
+	var feedString = getParam('feeds');
+
+	// Check for Default Values
+	if(key == '' && defaultKey != '') {
+		key = defaultKey;
+	}
+
+	if(feedString == '' && defaultFeeds.toString(',') != '') {
+		feedString = defaultFeeds.toString(',');
+	}
 
 	if(applicationName != '') {
 		$('h2').html(applicationName).css('color', 'white');
@@ -305,8 +315,56 @@
 	}
 
 	var feeds = feedString.split(',');
-	setFeeds(feeds);
 
+	$('#apiKeyInput').val(key);
+	$('#feedsInput').val(feedString);
+
+	$("#apiKeyInput").mouseover(function() {
+		console.log($("#apiKeyInput").prop('disabled'));
+		if($("#apiKeyInput").prop('disabled')) {
+			$("#apiKeyInput").prop('disabled', false);
+		}
+	});
+
+	if(key != '' && feedString != '') {
+		setApiKey($('#apiKeyInput').val());
+		feeds = $('#feedsInput').val().replace(/\s+/g, '').split(',');
+		setFeeds(feeds);
+	}
+
+	if(key != '') {
+		$("#apiKeyInput").prop('disabled', true);
+	}
+
+	$('#apiKeyInput').change(function() {
+		if($('#apiKeyInput').val() == '') {
+			$('#welcome').addClass('hidden');
+			$('#invalidApiKey').removeClass('hidden');
+			$('#validApiKey').addClass('hidden');
+		} else {
+			xively.setKey($('#apiKeyInput').val());
+			xively.feed.get(61916, function(data) {
+				if(data.id == 61916) {
+					$("#apiKeyInput").prop('disabled', true);
+					$('#welcome').addClass('hidden');
+					$('#validApiKey').removeClass('hidden');
+					$('#invalidApiKey').addClass('hidden');
+				} else {
+					$('#welcome').addClass('hidden');
+					$('#validApiKey').addClass('hidden');
+					$('#invalidApiKey').removeClass('hidden');
+				}
+			});
+		}
+		return false;
+	});
+
+	$('#setFeeds').click(function() {
+		setApiKey($('#apiKeyInput').val());
+		feeds = $('#feedsInput').val().replace(/\s+/g, '').split(',');
+		window.location = './index.html#key=' + $('#apiKeyInput').val() + '&feeds=' + $('#feedsInput').val();
+		return false;
+	});
 // END Initialization
 
 })( jQuery );
