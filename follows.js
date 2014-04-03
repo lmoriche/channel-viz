@@ -14,7 +14,7 @@
 
 	var defaultKey		= 'lW0rsHCy0OVpLBwvuD0CcN6YovDzBtItCenRJYLkmf7m77Is', // Unique master Xively API key to be used as a default
 		defaultFeeds	= [1157407060], // Comma separated array of Xively Feed ID numbers
-		applicationName	= 'Temperature Controller', // Replaces Xively logo in the header
+		applicationName	= 'Laurent\'s Temperature Controller', // Replaces Xively logo in the header
 		dataDuration	= '', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
 		dataInterval	= 0, // Default interval for data to be displayed (in seconds)
 		dataColor		= '', // CSS HEX value of color to represent data (omit leading #)
@@ -243,18 +243,6 @@
 					} else {
 						$('#feed-' + data.id + ' .description').addClass('hidden');
 					}
-
-					// Link
-					$('#feed-' + data.id + ' .link').addClass('hidden');
-
-					// Creator
-					$('#feed-' + data.id + ' .creator').addClass('hidden');
-
-					// Date Updated
-					$('#feed-' + data.id + ' .updated').addClass('hidden');
-
-					// Tags
-					$('#feed-' + data.id + ' .tags').addClass('hidden');
 
 					$('#feed-' + data.id + ' .duration-hour').click(function() {
 						$('#loadingData').foundation('reveal', 'open');
