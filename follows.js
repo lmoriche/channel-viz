@@ -78,7 +78,7 @@
 					});
 				}
 
-				var palette = new Rickshaw.Color.Palette();
+				var palette = new Rickshaw.Color.Palette({ scheme: 'classic9' });
 				feedData.datastreams.forEach(function(datastream) {
 					var now = new Date();
 					var then = new Date();
