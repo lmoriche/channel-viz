@@ -77,6 +77,8 @@
 						datastreamIds += datastream.id + " ";
 					});
 				}
+
+				var palette = new Rickshaw.Color.Palette();
 				feedData.datastreams.forEach(function(datastream) {
 					var now = new Date();
 					var then = new Date();
@@ -93,7 +95,6 @@
 						if(datastreamIds && datastreamIds != '' && datastreamIds.indexOf(datastream.id) >= 0) {
 							xively.datastream.history(feedId, datastream.id, {duration: duration, interval: interval, limit: 1000}, function(datastreamData) {
 
-								var palette = new Rickshaw.Color.Palette();
 								var series = [];
 								var points = [];
 
@@ -139,7 +140,7 @@
 										name: datastream.id,
 										data: points,
 										//color: '#' + dataColor
-										color: palette.color()
+										color: palette.color(datastream.id)
 									});
 
 									// Initialize Graph DOM Element
