@@ -238,19 +238,6 @@
 					// Duplicate Example to Build Feed UI
 					$('#exampleFeed').clone().appendTo('#feeds').attr('id', 'feed-' + id).removeClass('hidden');
 
-					// ID
-					$('#feed-' + data.id + ' .title .value').html(data.title);
-
-					// Title
-					$('#feed-' + data.id + ' .id .value').html(data.id);
-
-					// Description
-					if(data.description) {
-						$('#feed-' + data.id + ' .description .value').html(data.description);
-					} else {
-						$('#feed-' + data.id + ' .description').addClass('hidden');
-					}
-
 					$('#feed-' + data.id + ' .duration-hour').click(function() {
 						$('#loadingData').foundation('reveal', 'open');
 						updateFeeds(data.id, thisFeedDatastreams, '6hours', 30);
