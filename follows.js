@@ -93,6 +93,7 @@
 						if(datastreamIds && datastreamIds != '' && datastreamIds.indexOf(datastream.id) >= 0) {
 							xively.datastream.history(feedId, datastream.id, {duration: duration, interval: interval, limit: 1000}, function(datastreamData) {
 
+								var palette = new Rickshaw.Color.Palette();
 								var series = [];
 								var points = [];
 
@@ -137,7 +138,8 @@
 									series.push({
 										name: datastream.id,
 										data: points,
-										color: '#' + dataColor
+										//color: '#' + dataColor
+										color: palette.color(datastream.id)
 									});
 
 									// Initialize Graph DOM Element
