@@ -165,8 +165,11 @@
 									var ticksTreatment = 'glow';
 
 									// Define and Render X Axis (Time Values)
-									var xAxis = new Rickshaw.Graph.Axis.Time( {
+									var xAxis = new Rickshaw.Graph.Axis.X( {
 										graph: graph,
+										tickFormat: function(x) {
+											return new Date(x * 1000).toString();
+										}
 										ticksTreatment: ticksTreatment
 									});
 									xAxis.render();
