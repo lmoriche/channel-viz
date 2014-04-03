@@ -167,7 +167,6 @@
 									// Define and Render X Axis (Time Values)
 									var xAxis = new Rickshaw.Graph.Axis.Time( {
 										graph: graph,
-										//timeFixture: new Rickshaw.Fixtures.Time.Local(),
 										ticksTreatment: ticksTreatment
 									});
 									xAxis.render();
@@ -184,14 +183,14 @@
 									var hoverDetail = new Rickshaw.Graph.HoverDetail({
 										graph: graph,
 										formatter: function(series, x, y) {
-											var date = '<span class="date">' + new Date(x * 1000).toString() + '</span>';
+											//var date = '<span class="date">' + new Date(x * 1000).toString() + '</span>';
 											var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + ' padding: 4px;"></span>';
 											var content = swatch + "&nbsp;&nbsp;" + parseFloat(y) + '&nbsp;&nbsp;<br>';
 											return content;
 										},
-										xFormatter: function(x) {
-											return new Date(x * 1000).toString();
-										},
+										//xFormatter: function(x) {
+										//	return new Date(x * 1000).toString();
+										//},
 									});
 
 									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .slider').prop('id', 'slider-' + feedId + '-' + datastream.id);
