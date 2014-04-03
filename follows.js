@@ -168,7 +168,7 @@
 									var xAxis = new Rickshaw.Graph.Axis.X( {
 										graph: graph,
 										tickFormat: function(x) {
-											return new Date(x * 1000).toString();
+											return new Date(x * 1000).toDateString();
 										},
 										ticksTreatment: ticksTreatment
 									});
