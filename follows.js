@@ -1,34 +1,12 @@
 (function ( $ ){
 
-	/*
-	EXAMPLE CONFIGURATION
-
-		var defaultKey	= 'fje329iun52ngtuijo2f4jeun432A', // Unique master Xively API key to be used as a default
-		defaultFeeds	= [61916,12425,94322], // Comma separated array of Xively Feed ID numbers
-		applicationName	= 'My Company\'s Application', // Replaces Xively logo in the header
-		dataDuration	= '90days', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
-		dataInterval	= 10800, // Default interval for data to be displayed (in seconds)
-		dataColor		= '0A1922'; // CSS HEX value of color to represent data (omit leading #)
-	*/
-
 	var defaultKey		= 'lW0rsHCy0OVpLBwvuD0CcN6YovDzBtItCenRJYLkmf7m77Is', // Unique master Xively API key to be used as a default
-		defaultFeeds	= [1157407060], // Comma separated array of Xively Feed ID numbers
+		defaultFeeds	= ['1157407060'], // Comma separated array of Xively Feed ID numbers
 		applicationName	= 'RaspberryPi Temperature Controller', // Replaces Xively logo in the header
-		dataDuration	= '', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
-		dataInterval	= 0, // Default interval for data to be displayed (in seconds)
-		dataColor		= ''; // CSS HEX value of color to represent data (omit leading #)
+		dataDuration	= '1day', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
+		dataInterval	= 60; // Default interval for data to be displayed (in seconds)
 
 // Function Declarations
-
-	// URL Parameters
-	function getParam(key) {
-	 	var value = location.hash.match(new RegExp(key+'=([^&]*)'));
-		if(value) {
-			return value[1];
-		} else {
-			return "";
-		}
-	}
 
 	// Graph Annotations
 	function addAnnotation(force) {
@@ -137,7 +115,6 @@
 									series.push({
 										name: datastream.id,
 										data: points,
-										//color: '#' + dataColor
 										color: palette.color(datastream.id)
 									});
 
@@ -271,10 +248,6 @@
 					} else {
 						updateFeeds(data.id, thisFeedDatastreams, '6hours', 30);
 					}
-				} else {
-					// Duplicate Example to Build Feed UI
-					$('#exampleFeedNotFound').clone().appendTo('#feeds').attr('id', 'feed-' + id).removeClass('hidden');
-					$('#feed-' + id + ' h2').html(id);
 				}
 			});
 		});
@@ -283,24 +256,13 @@
 
 // BEGIN Initialization
 
-	var today = new Date();
-	var yesterday = new Date(today.getTime()-1000*60*60*24*1);
-	var lastWeek = new Date(today.getTime()-1000*60*60*24*7);
-
-	var key = defaultKey;
-	var feedString = defaultFeeds.toString(',');
-
 	if(applicationName != '') {
 		$('h2').html(applicationName).css('color', 'white');
 		document.title = applicationName;
 	}
 
-	if(dataColor == '') {
-		dataColor = '0A1922';
-	}
-
-	setApiKey(key);
-	setFeeds(feedString.replace(/\s+/g, '').split(','));
+	setApiKey(defaultKey);
+	setFeeds(defaultFeeds);
 
 // END Initialization
 
