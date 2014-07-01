@@ -4,7 +4,7 @@
 		defaultFeeds	= ['832040726'], // Comma separated array of Xively Feed ID numbers
 		applicationName	= '', // Replaces Xively logo in the header
 		dataDuration	= '1week', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
-		dataInterval	= 60; // Default interval for data to be displayed (in seconds)
+		dataInterval	= 900; // Default interval for data to be displayed (in seconds)
 
 // Function Declarations
 
