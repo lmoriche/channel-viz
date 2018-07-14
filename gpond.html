@@ -11,7 +11,7 @@
       var url = 'https://docs.google.com/spreadsheets/d/1nki4S_r5t6lq91d5f3FdAC67qcLr2nyQ-IznfD2HTEE/gviz/tq';
 
       var end = moment();
-      var start = end.clone().subtract(14, 'days');
+      var start = end.clone().subtract(30, 'days');
 
       var query = new google.visualization.Query(url);
       query.setQuery('select A, B where A > datetime "' + start.format("YYYY-MM-DD H:mm:ss")
