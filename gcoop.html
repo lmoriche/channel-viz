@@ -1,0 +1,94 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="moment.js"></script>
+
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var url = 'https://docs.google.com/spreadsheets/d/14s3-QwZib0tCj4SXOjXb9tRNbWCfzYnSLTlT4JpVeIo/gviz/tq';
+
+      var end = moment();
+      var start = end.clone().subtract(14, 'days');
+
+      var query = new google.visualization.Query(url);
+      query.setQuery('select A, B where A > datetime "' + start.format("YYYY-MM-DD H:mm:ss")
+          + '" and A <= datetime "' + end.format("YYYY-MM-DD H:mm:ss") + '"');
+      query.send(handleQueryResponse);
+
+      var lastRowQuery = new google.visualization.Query(url);
+      lastRowQuery.setQuery('select A, B order by A desc limit 1');
+      lastRowQuery.send(handleLastRowQueryResponse);
+    }
+
+    function handleLastRowQueryResponse(response) {
+      if (response.isError()) {
+        alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+       return;
+      }
+      var data = response.getDataTable();
+
+      document.getElementById('temperature_div').innerHTML = data.getFormattedValue(0, 1) + '&deg;F';
+      document.getElementById('last_updated_div').innerHTML = '<font color="#7a7b7e">Last updated</font> '
+          + moment(data.getFormattedValue(0, 0)).fromNow();
+    }
+
+    function handleQueryResponse(response) {
+      if (response.isError()) {
+        alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+       return;
+      }
+      var data = response.getDataTable();
+
+      var options = {
+        curveType: 'function',
+        colors: ['#0D70C4'],
+        backgroundColor: '#C7C9CA',
+        chartArea: {
+            height: '90%', width: '90%',
+            backgroundColor : {fill: '#C7C9CA'}
+        },
+        legend: {position: 'none'},
+        hAxis: {
+           format: 'MM/dd hh:mm',
+           gridlines: {color: '#96999A'},
+           slantedText: false,
+           maxAlternation: 1
+        },
+        vAxis: {
+           gridlines: {color: '#96999A'}
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+<style>
+body {
+    background: #fff;
+    font-family: "proxima-nova", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1;
+    color: #111c24;
+    margin: 3%;
+    position: relative;
+    -webkit-font-smoothing: antialiased
+}
+
+div {
+    background-color: #c7c9ca;
+}
+</style>
+<body>
+  <div><table width="100%"><tr><td align="right"><font size="6"><div id="temperature_div"></div></font></td><td width="5%"></td></tr></table><div>
+  <div><table width="100%"><tr><td align="right"><font size="2"><div id="last_updated_div"></div></font></td><td width="5%"></td></tr></table><div>
+  <div id="chart_div" style="height: 400px"></div>
+</body>
+</html>
